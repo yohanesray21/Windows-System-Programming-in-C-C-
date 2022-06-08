@@ -39,23 +39,120 @@ df = pd.DataFrame(list)
 
 df.to_csv("apicall.csv")
 
-df.head()
+df
 
 df_value = df['value']
 
 import re
 
 list_value = []
-for value in df_value: 
-  value = re.sub(".$", '', value)
+list_argument = []
+i = 0
+for value in df_value:
   split_value = value.split('(')
-  dict = {'apicall' : split_value[0], 'argument' : split_value[1]}
+  list_value.append(split_value[0])
+  list_argument.append(split_value[1])
+  
+  # split_value[1] = re.sub(".$", '', split_value[1])
+  # split_argument = split_value[0].split('(')
+  # split_value_0 = split_value[0].split('(')
+  # split_value_0 = re.sub(".$", '', split_value)
 
-  list_value.append(dict)
+  # print(split_argument)
+  
+  # dict = {'apicall' : split_value[0], 'argument' : split_value[1:]}
+
+  # list_value.append(dict)
+
+test_dct = {
+    'value' : list_value,
+    'argument' : list_argument
+}
+
+df_test = pd.DataFrame(test_dct)
+df_test.head()
+
+"""
+  pertama
+  for i in argument
+  baru
+  if else check jumlah argument
+  create column
+  assign column
+  
+"""
+
+argument_splited = []
+ko = 0
+for i in test_dct['argument']:
+  splited = i.split(',')
+  argument_splited.append(splited)
+  # print(splited)
+  # if len(splited)>1:
+  #   print(splited[1])
+  # if ko==20:
+  #   break
+  # ko += 1
+
+for i in argument_splited:
+  print("panjangnya data =   " + str(len(i)))
+
+test_dct['argument1'] = []
+test_dct['argument2'] = []
+test_dct['argument3'] = []
+test_dct['argument4'] = []
+
+print(argument_splited[5])
+print(argument_splited[5][0])
+# for i in argument_splited:
+#   print(i[0])
+
+for i in argument_splited:
+  test_dct['argument1'].append(i[0])
+  if len(i)>1:
+    test_dct['argument2'].append(i[1])
+  else:
+    test_dct['argument2'].append('none')
+  if len(i)>2:
+    test_dct['argument3'].append(i[2])
+  else:
+    test_dct['argument3'].append('none')
+  if len(i)>3:
+    test_dct['argument4'].append(i[3])
+  else:
+    test_dct['argument4'].append('none')
+
+df_coba = pd.DataFrame(test_dct)
+df_coba.head
+
+print(dict)
 
 df_value_csv = pd.DataFrame(list_value)
 
 df_value_csv.to_csv('value.csv')
 
-df_value_csv.head(10)
+df_value_csv
+
+list_value = []
+list_argument = []
+
+for value in df_value: 
+  value = re.sub(".$", '', value)
+  split_value = value.split('(')
+  split_argument = split_value[1].split(',')
+
+  # print(split_argument)
+  
+  # dict = {'apicall' : split_value[0], 'argument' : split_value[1]}
+
+  # list_value.append(dict)
+  res = {idx: ele for idx, ele in enumerate(split_argument)}
+  
+  list_argument.append(str(res))
+
+df_list_argument = pd.DataFrame(list_argument)
+
+df_list_argument.to_csv('list_argument.csv')
+
+df_list_argument
 
