@@ -10,13 +10,21 @@ Original file is located at
 import json
 import pandas as pd
 
+# Show Row Data
 with open("ApiCall-Gandcrab.txt") as data_apicall : 
   counter = 0
+  report_log = []
 
   for api in data_apicall: 
-    if(counter <= 5):
-      print(api)
-      counter+=1
+    report_log.append(api)
+    
+  df_report_log = pd.DataFrame(report_log)
+  df_report_log.to_csv('reportLog.csv')
+
+df_report_log
+
+from google.colab import drive
+drive.mount('/content/drive')
 
 list = []
 
@@ -49,7 +57,7 @@ list_value = []
 list_argument = []
 i = 0
 for value in df_value:
-  split_value = value.split('(')
+  split_value = value.split('(', 1)
   list_value.append(split_value[0])
   list_argument.append(split_value[1])
   
@@ -70,7 +78,8 @@ test_dct = {
 }
 
 df_test = pd.DataFrame(test_dct)
-df_test.head()
+# df_test.head()
+df_test
 
 """
   pertama
@@ -97,10 +106,17 @@ for i in test_dct['argument']:
 for i in argument_splited:
   print("panjangnya data =   " + str(len(i)))
 
-test_dct['argument1'] = []
-test_dct['argument2'] = []
-test_dct['argument3'] = []
-test_dct['argument4'] = []
+print(argument_splited)
+
+test_dct1 = {}
+
+
+test_dct1['argument1'] = []
+test_dct1['argument2'] = []
+test_dct1['argument3'] = []
+test_dct1['argument4'] = []
+test_dct1['argument5'] = []
+test_dct1['argument6'] = []
 
 print(argument_splited[5])
 print(argument_splited[5][0])
@@ -108,22 +124,31 @@ print(argument_splited[5][0])
 #   print(i[0])
 
 for i in argument_splited:
-  test_dct['argument1'].append(i[0])
+  test_dct1['argument1'].append(i[0])
   if len(i)>1:
-    test_dct['argument2'].append(i[1])
+    test_dct1['argument2'].append(i[1])
   else:
-    test_dct['argument2'].append('none')
+    test_dct1['argument2'].append('none')
   if len(i)>2:
-    test_dct['argument3'].append(i[2])
+    test_dct1['argument3'].append(i[2])
   else:
-    test_dct['argument3'].append('none')
+    test_dct1['argument3'].append('none')
   if len(i)>3:
-    test_dct['argument4'].append(i[3])
+    test_dct1['argument4'].append(i[3])
   else:
-    test_dct['argument4'].append('none')
+    test_dct1['argument4'].append('none')
+  if len(i)>4:
+    test_dct1['argument5'].append(i[4])
+  else:
+    test_dct1['argument5'].append('none')
+  if len(i)>5:
+    test_dct1['argument6'].append(i[5])
+  else:
+    test_dct1['argument6'].append('none')
 
-df_coba = pd.DataFrame(test_dct)
-df_coba.head
+df_coba = pd.DataFrame(test_dct1)
+df_coba.to_csv('argumen_split.csv')
+df_coba
 
 print(dict)
 
